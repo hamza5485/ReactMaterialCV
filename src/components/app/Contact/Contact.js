@@ -13,47 +13,33 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import {
+    COLORS,
+    typo,
+    sub,
+    section,
+    sectionHeading,
+    summary,
+    avatar,
+    listItem
+} from '../../../assets/styles';
 
 const useStyles = makeStyles(theme => ({
     image: {
         margin: theme.spacing(1),
         borderRadius: '50%',
         width: '50%',
-        border: '4px solid #2ca8dc',
+        border: `4px solid ${COLORS.light}`,
         padding: theme.spacing(.5),
         backgroundColor: 'white'
     },
-    typo: {
-        color: '#2ca8dc'
-    },
-    sub: {
-        color: '#ffffff'
-    },
-    section: {
-        marginTop: theme.spacing(4),
-        marginBottom: theme.spacing(4),
-        marginRight: theme.spacing(2),
-        marginLeft: theme.spacing(2),
-    },
-    sectionHeading: {
-        marginBottom: theme.spacing(2),
-        textAlign: 'end',
-        color: '#2ca8dc',
-        borderBottom: '2px solid #ffffff',
-    },
-    summary: {
-        color: '#ffffff',
-        textAlign: 'left'
-    },
-    avatar: {
-        backgroundColor: '#ffffff00',
-        border: '3px solid white',
-        color: '#2ca8dc'
-    },
-    listItem: {
-        paddingLeft: 0,
-        paddingRight: 0
-    }
+    typo,
+    sub,
+    section,
+    sectionHeading,
+    summary,
+    avatar,
+    listItem
 }));
 
 
