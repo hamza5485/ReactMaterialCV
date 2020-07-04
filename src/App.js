@@ -7,6 +7,7 @@ import Body from './components/app/Body/Body';
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
+        height: '100vh'
     }
 }));
 
@@ -16,10 +17,10 @@ const App = () => {
     return (
         <div className="App">
             <Grid container className={classes.root}>
-                <Grid item xs={6} sm={5} md={4} lg={3}>
+                <Grid item sm={12} md={3}>
                     <Sidebar />
                 </Grid>
-                <Grid item xs={6} sm={7} md={8} lg={9}>
+                <Grid item sm={12} md={9}>
                     <Body />
                 </Grid>
             </Grid>
