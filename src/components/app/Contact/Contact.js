@@ -19,7 +19,9 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1),
         borderRadius: '50%',
         width: '50%',
-        border: '3px solid white'
+        border: '4px solid #2ca8dc',
+        padding: theme.spacing(.5),
+        backgroundColor: 'white'
     },
     typo: {
         color: '#2ca8dc'
@@ -61,7 +63,7 @@ const Contact = () => {
     const summary = () => (
         <div className={classes.section}>
             <Typography variant="h6" className={classes.sectionHeading} gutterBottom>
-                Summary
+                SUMMARY
             </Typography>
             <Typography variant="body1" gutterBottom className={classes.summary}>
                 {data.summary}
@@ -72,41 +74,29 @@ const Contact = () => {
     const contactMe = () => (
         <div className={classes.section}>
             <Typography variant="h6" className={classes.sectionHeading} gutterBottom>
-                Contact Me
+                CONTACT ME
             </Typography>
             <List>
-                <ListItem className={classes.listItem} component="a" target="_blank" href={data.links.website}>
-                    <ListItemAvatar>
-                        <Avatar className={classes.avatar}>
-                            <LanguageIcon />
-                        </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="hamzaanas.dev" className={classes.summary} />
-                </ListItem>
-                <ListItem className={classes.listItem} component="a" target="_blank" href={data.links.email}>
-                    <ListItemAvatar>
-                        <Avatar className={classes.avatar}>
-                            <MailIcon />
-                        </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="hamza5485@gmail.com" className={classes.summary} />
-                </ListItem>
-                <ListItem className={classes.listItem} component="a" target="_blank" href={data.links.number}>
-                    <ListItemAvatar>
-                        <Avatar className={classes.avatar}>
-                            <CallIcon />
-                        </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="(+61) 413 385 999" className={classes.summary} />
-                </ListItem>
-                <ListItem className={classes.listItem}>
-                    <ListItemAvatar>
-                        <Avatar className={classes.avatar}>
-                            <LocationOnIcon />
-                        </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={data.location} className={classes.summary} />
-                </ListItem>
+                {Object.keys(data.contact).map((obj, i) => {
+                    return (
+                        <ListItem
+                            key={i}
+                            className={classes.listItem}
+                            component="a"
+                            href={data.contact[obj].hasOwnProperty("link") ? data.contact[obj].link : "#"}
+                        >
+                            <ListItemAvatar>
+                                <Avatar className={classes.avatar}>
+                                    {obj === "location" && <LocationOnIcon />}
+                                    {obj === "email" && <MailIcon />}
+                                    {obj === "website" && <LanguageIcon />}
+                                    {obj === "number" && <CallIcon />}
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary={data.contact[obj].text} className={classes.summary} />
+                        </ListItem>
+                    );
+                })}
             </List>
         </div>
     );
@@ -114,33 +104,28 @@ const Contact = () => {
     const social = () => (
         <div className={classes.section}>
             <Typography variant="h6" className={classes.sectionHeading} gutterBottom>
-                Social
+                SOCIAL
             </Typography>
             <List>
-                <ListItem className={classes.listItem} component="a" target="_blank" href={data.links.linkedin}>
-                    <ListItemAvatar>
-                        <Avatar className={classes.avatar}>
-                            <LinkedInIcon />
-                        </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="hamzaanas" className={classes.summary} />
-                </ListItem>
-                <ListItem className={classes.listItem} component="a" target="_blank" href={data.links.twitter}>
-                    <ListItemAvatar>
-                        <Avatar className={classes.avatar}>
-                            <TwitterIcon />
-                        </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="@hamza_anas5" className={classes.summary} />
-                </ListItem>
-                <ListItem className={classes.listItem} component="a" target="_blank" href={data.links.github}>
-                    <ListItemAvatar>
-                        <Avatar className={classes.avatar}>
-                            <GitHubIcon />
-                        </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="hamza5485" className={classes.summary} />
-                </ListItem>
+                {Object.keys(data.social).map((obj, i) => {
+                    return (
+                        <ListItem
+                            key={i}
+                            className={classes.listItem}
+                            component="a"
+                            href={data.social[obj].hasOwnProperty("link") ? data.social[obj].link : "#"}
+                        >
+                            <ListItemAvatar>
+                                <Avatar className={classes.avatar}>
+                                    {obj === "linkedin" && <LinkedInIcon />}
+                                    {obj === "github" && <GitHubIcon />}
+                                    {obj === "twitter" && <TwitterIcon />}
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary={data.social[obj].text} className={classes.summary} />
+                        </ListItem>
+                    );
+                })}
             </List>
         </div>
     );
@@ -149,7 +134,7 @@ const Contact = () => {
         <div>
             <img alt="hamza" src="me.jpg" className={classes.image} />
             <Typography variant="h4" className={classes.typo} gutterBottom>
-                {data.name}
+                {data.name.toUpperCase()}
             </Typography>
             <Typography variant="h6" className={classes.sub} gutterBottom>
                 {data.title}
