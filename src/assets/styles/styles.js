@@ -29,7 +29,7 @@ export const section = {
 };
 
 export const sectionHeading = {
-    textAlign: 'end',
+    textAlign: 'start',
     color: COLORS.light,
     fontWeight: 'bold',
     borderBottom: `2px solid ${COLORS.light}`
@@ -37,7 +37,7 @@ export const sectionHeading = {
 
 export const summary = {
     color: '#ffffff',
-    textAlign: 'left',
+    textAlign: 'start',
     display: 'block'
 };
 

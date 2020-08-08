@@ -22,6 +22,7 @@ import StorageIcon from '@material-ui/icons/Storage';
 import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import CloudIcon from '@material-ui/icons/Cloud';
 import BrushIcon from '@material-ui/icons/Brush';
+import BallotIcon from '@material-ui/icons/Ballot';
 import {
     COLORS,
     typo,
@@ -121,29 +122,30 @@ const Sidebar = () => {
         </div>
     );
 
-    const social = () => (
+    const links = () => (
         <div className={classes.section}>
             <Typography variant="h6" className={classes.sectionHeading} gutterBottom>
-                SOCIAL
+                LINKS
             </Typography>
             <List>
-                {Object.keys(data.social).map((obj, i) => {
+                {Object.keys(data.links).map((obj, i) => {
                     return (
                         <ListItem
                             key={i}
                             className={classes.listItem}
                             component="a"
-                            href={data.social[obj].hasOwnProperty("link") ? data.social[obj].link : "#"}
+                            href={data.links[obj].hasOwnProperty("link") ? data.links[obj].link : "#"}
                             target="_blank"
                         >
                             <ListItemAvatar>
                                 <Avatar className={classes.avatar}>
+                                    {obj === "resume" && <BallotIcon />}
                                     {obj === "linkedin" && <LinkedInIcon />}
                                     {obj === "github" && <GitHubIcon />}
                                     {obj === "twitter" && <TwitterIcon />}
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary={data.social[obj].text} className={classes.summary} />
+                            <ListItemText primary={data.links[obj].text} className={classes.summary} />
                         </ListItem>
                     );
                 })}
@@ -246,7 +248,7 @@ const Sidebar = () => {
             {summary()}
             {skills()}
             {contactMe()}
-            {social()}
+            {links()}
         </div>
     );
 };

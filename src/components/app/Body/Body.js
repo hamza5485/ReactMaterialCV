@@ -271,12 +271,12 @@ const Body = () => {
                         }
                     />
                 </ListItem>
-                <List disablePadding component={'div'}>
-                    {obj.techStack.map((tech, i) => {
-                        /**
+                {/* <List disablePadding component={'div'}>
+                    {obj.techStack.map((tech, i) => { */}
+                        {/* /**
                          * fucks up responsive design on very small screens
-                         */
-                        return (
+                         */ }
+                        {/* return (
                             <ListItem key={i} className={classes.nested}>
                                 {tech.stack.map((el, j) => {
                                     return <Chip
@@ -300,11 +300,20 @@ const Body = () => {
                             </ListItem>
                         )
                     })}
-                </List>
+                </List> */}
             </div>
         )
     };
 
+    /**
+     * make separate component as ExpandableList
+     * contains two elements:
+     *      ~> List containing work experience (current implementation)
+     *      ~> slide in drawer containing position details
+     *      ~> list item (work experience) click will trigger slide in drawer
+     *          > Persistant Drawer
+     *          > https://material-ui.com/components/drawers/
+     */
     const getExpereience = () => {
         return (
             <div className={classes.section}>
