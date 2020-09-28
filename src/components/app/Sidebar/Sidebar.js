@@ -23,12 +23,13 @@ import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import CloudIcon from '@material-ui/icons/Cloud';
 import BrushIcon from '@material-ui/icons/Brush';
 import BallotIcon from '@material-ui/icons/Ballot';
+import DialerSipIcon from '@material-ui/icons/DialerSip';
 import {
     COLORS,
     typo,
     sub,
     section,
-    chipSecondary,
+    chip,
     chipIcon,
     sectionHeading,
     summary,
@@ -58,16 +59,14 @@ const useStyles = makeStyles(theme => ({
     summary,
     avatar,
     listItem,
-    chipSecondary,
+    chip,
     chipIcon
 }));
 
 const Sidebar = () => {
     const classes = useStyles();
-    // const [open, setOpen] = React.useState(false);
-    // const [toOpen, setToOpen] = React.useState(-1);
     const [expandList, setExpandList] = React.useState(
-        skillData.skill.map((el, i) => {
+        skillData.skill.map(() => {
             return {
                 expand: false
             };
@@ -103,7 +102,7 @@ const Sidebar = () => {
                             key={i}
                             className={classes.listItem}
                             component="a"
-                            href={data.contact[obj].hasOwnProperty("link") ? data.contact[obj].link : "#"}
+                            href={data.contact[obj].hasOwnProperty("link") ? data.contact[obj].link : ""}
                             target={data.contact[obj].hasOwnProperty("link") ? "_blank" : ""}
                         >
                             <ListItemAvatar>
@@ -155,7 +154,8 @@ const Sidebar = () => {
 
     const getTechStack = (el) => {
         let stack;
-        if (el === "Amazon Web Services") stack = [skillData.technologies.AWS];
+        if (el === "Cloud Architecture") stack = [skillData.technologies.Cloud];
+        if (el === "Communications") stack = [skillData.technologies.Telephony];
         if (el === "Web Development") stack = [
             skillData.technologies.JavaScript,
             skillData.technologies.Python,
@@ -173,11 +173,13 @@ const Sidebar = () => {
                         return <Chip
                             label={s} key={k}
                             size="small"
-                            className={classes.chipSecondary}
+                            className={classes.chip}
                             avatar={
                                 <Avatar className={classes.chipIcon}>
                                     {obj.type === 'code' &&
                                         <CodeIcon fontSize="small" className={classes.icon} />}
+                                    {obj.type === 'comsys' &&
+                                        <DialerSipIcon fontSize="small" className={classes.icon} />}
                                     {obj.type === 'storage' &&
                                         <StorageIcon fontSize="small" className={classes.icon} />}
                                     {obj.type === 'ui' &&
@@ -212,7 +214,8 @@ const Sidebar = () => {
                                 >
                                     <ListItemAvatar>
                                         <Avatar className={classes.avatar}>
-                                            {el === "Amazon Web Services" && <CloudIcon />}
+                                            {el === "Cloud Architecture" && <CloudIcon />}
+                                            {el === "Communications" && <DialerSipIcon />}
                                             {el === "Web Development" && <HttpIcon />}
                                             {el === "Mobile Development" && <PhoneAndroidIcon />}
                                             {el === "Database Development" && <StorageIcon />}

@@ -59,23 +59,11 @@ export const listItem = {
     borderRadius: '1em',
     '&:hover': {
         backgroundColor: COLORS.primary,
+        cursor: 'pointer'
     }
 };
 
 export const chip = {
-    margin: '.5em .5em',
-    padding: '.5em',
-    cursor: 'pointer',
-    color: COLORS.dark,
-    backgroundColor: COLORS.light,
-    borderRadius: '.5em',
-    '&:hover': {
-        backgroundColor: COLORS.dark,
-        color: COLORS.light,
-    }
-};
-
-export const chipSecondary = {
     margin: '.5em .5em',
     padding: '.5em',
     cursor: 'pointer',

@@ -7,9 +7,9 @@ import {
     ListItemText,
     ListItemAvatar,
     Avatar,
-    IconButton,
     Collapse,
-    Chip
+    Chip,
+    ListItemIcon
 } from '@material-ui/core';
 import {
     COLORS,
@@ -32,6 +32,11 @@ import CodeIcon from '@material-ui/icons/Code';
 import StorageIcon from '@material-ui/icons/Storage';
 import BrushIcon from '@material-ui/icons/Brush';
 import CloudIcon from '@material-ui/icons/Cloud';
+import DescriptionIcon from '@material-ui/icons/Description';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import LinkIcon from '@material-ui/icons/Link';
+import DialerSipIcon from '@material-ui/icons/DialerSip';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -73,20 +78,32 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: COLORS.primary,
             color: COLORS.light,
         }
-
     },
     nested: {
-        paddingLeft: theme.spacing(5),
-        display: 'block'
+        paddingLeft: theme.spacing(12),
+        //remove inline styles
     },
 }));
 
 const Body = () => {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [expandExp, setExpandExp] = React.useState(
+        experience.map(() => { return { expand: false } })
+    );
+    const [expandUni, setExpandUni] = React.useState(
+        education.schooling.map(() => { return { expand: false } })
+    );
 
-    const handleClick = () => {
-        setOpen(!open);
+    const handleExpClick = (i) => {
+        let list = [...expandExp];
+        list[i].expand = !list[i].expand;
+        setExpandExp(list);
+    };
+
+    const handleUniClick = (i) => {
+        let list = [...expandUni];
+        list[i].expand = !list[i].expand;
+        setExpandUni(list);
     };
 
     const certificationSection = (obj, i) => {
@@ -140,38 +157,39 @@ const Body = () => {
 
     const educationSection = (obj, i) => {
         return (
-            <ListItem className={classes.listItem} button component="a" href={obj.courseUrl} target="_blank">
-                <ListItemAvatar>
-                    <img
-                        alt={obj.company}
-                        src={obj.image}
-                        className={classes.avatar}
-                        style={{ width: '60px' }}
-                    />
-                </ListItemAvatar>
-                <ListItemText
-                    primary={obj.name}
-                    className={classes.typo}
-                    style={{ padding: '0 1em' }}
-                    secondary={
-                        <React.Fragment>
-                            <Typography
-                                gutterBottom
-                                className={classes.summary}
-                                color="textPrimary"
-                                component="span"
-                            >
-                                {obj.course}
-                            </Typography>
-                            <Typography
+            <div key={i}>
+                <ListItem className={classes.listItem} onClick={() => handleUniClick(i)}>
+                    <ListItemAvatar>
+                        <img
+                            alt={obj.company}
+                            src={obj.image}
+                            className={classes.avatar}
+                            style={{ width: '60px' }}
+                        />
+                    </ListItemAvatar>
+                    <ListItemText
+                        primary={obj.name}
+                        className={classes.typo}
+                        style={{ padding: '0 1em' }}
+                        secondary={
+                            <React.Fragment>
+                                <Typography
+                                    gutterBottom
+                                    className={classes.summary}
+                                    color="textPrimary"
+                                    component="span"
+                                >
+                                    {obj.course}
+                                </Typography>
+                                {/* <Typography
                                 gutterBottom
                                 className={classes.summary}
                                 color="textPrimary"
                                 component="span"
                             >
                                 {obj.specialization}
-                            </Typography>
-                            <Typography
+                            </Typography> */}
+                                {/* <Typography
                                 gutterBottom
                                 className={classes.summary}
                                 color="textPrimary"
@@ -186,33 +204,59 @@ const Body = () => {
                                 component="span"
                             >
                                 {obj.location}
-                            </Typography>
-                        </React.Fragment>
-                    }
-                />
-            </ListItem>
+                            </Typography> */}
+                            </React.Fragment>
+                        }
+                    />
+                    {expandUni[i].expand ? <ExpandLess style={{ color: COLORS.light }} /> :
+                        <ExpandMore style={{ color: COLORS.light }} />}
+                </ListItem>
+                <Collapse in={expandUni[i].expand} timeout="auto" unmountOnExit>
+                    <div>
+                        <List disablePadding component={'div'}>
+                            <ListItem className={classes.nested}>
+                                <ListItemIcon>
+                                    <DescriptionIcon style={{ color: COLORS.light }} />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={obj.specialization}
+                                    className={classes.summary} />
+                            </ListItem>
+                            <ListItem className={classes.nested}>
+                                <ListItemIcon>
+                                    <DateRangeIcon style={{ color: COLORS.light }} />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={`${obj.dates.start} - ${obj.current ? 'Present' : obj.dates.end}`}
+                                    className={classes.summary} />
+                            </ListItem>
+                            <ListItem className={classes.nested}>
+                                <ListItemIcon>
+                                    <LocationOnIcon style={{ color: COLORS.light }} />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={obj.location}
+                                    className={classes.summary} />
+                            </ListItem>
+                            <ListItem className={classes.nested} component="a" href={obj.courseUrl} target="_blank">
+                                <ListItemIcon>
+                                    <LinkIcon style={{ color: COLORS.light }} />
+                                </ListItemIcon>
+                                <ListItemText style={{ textDecoration: 'underline' }}
+                                    primary="View Course"
+                                    className={classes.summary} />
+                            </ListItem>
+                        </List>
+                    </div>
+                </Collapse>
+            </div>
         )
-    };
-
-    const listExpand = () => {
-        return (
-            <ListItem style={{ justifyContent: 'center' }}>
-                <IconButton
-                    className={classes.expandButton}
-                    aria-label="upload picture"
-                    component="span"
-                    onClick={handleClick}
-                >
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                </IconButton>
-            </ListItem>
-        );
     };
 
     const experienceSection = (obj, i) => {
         return (
-            <div className={classes.listItem} key={i}>
-                <ListItem>
+            <div key={i}>
+                <ListItem className={classes.listItem} onClick={() => handleExpClick(i)}>
                     <ListItemAvatar>
                         <img
                             alt={obj.company}
@@ -235,85 +279,82 @@ const Body = () => {
                                 >
                                     {obj.company}
                                 </Typography>
-                                <Typography
-                                    gutterBottom
-                                    className={classes.summary}
-                                    color="textPrimary"
-                                    component="span"
-                                >
-                                    {`${obj.dates.start} - ${obj.current ? 'Present' : obj.dates.end}`}
-                                </Typography>
-                                <Typography
-                                    variant="body1"
-                                    gutterBottom
-                                    className={classes.summary}
-                                    component="span"
-                                >
-                                    {obj.location}
-                                </Typography>
-                                <Typography
-                                    variant="body1"
-                                    gutterBottom
-                                    className={classes.summary}
-                                    component="span"
-                                >
-                                    {obj.type}
-                                </Typography>
-                                <Typography
-                                    variant="body1"
-                                    gutterBottom
-                                    style={{ color: COLORS.grey }}
-                                    component="span"
-                                >
-                                    {obj.comments}
-                                </Typography>
                             </React.Fragment>
                         }
                     />
+                    {expandExp[i].expand ? <ExpandLess style={{ color: COLORS.light }} /> :
+                        <ExpandMore style={{ color: COLORS.light }} />}
                 </ListItem>
-                {/* <List disablePadding component={'div'}>
-                    {obj.techStack.map((tech, i) => { */}
-                        {/* /**
-                         * fucks up responsive design on very small screens
-                         */ }
-                        {/* return (
-                            <ListItem key={i} className={classes.nested}>
-                                {tech.stack.map((el, j) => {
-                                    return <Chip
-                                        label={el} key={j}
-                                        className={classes.chip}
-                                        avatar={
-                                            <Avatar className={classes.chipIcon}>
-                                                {tech.type === 'code' &&
-                                                    <CodeIcon className={classes.icon} />}
-                                                {tech.type === 'storage' &&
-                                                    <StorageIcon className={classes.icon} />}
-                                                {tech.type === 'ui' &&
-                                                    <BrushIcon className={classes.icon} />}
-                                                {tech.type === 'cloud' &&
-                                                    <CloudIcon className={classes.icon} />}
-
-                                            </Avatar>
-                                        }
-                                    />
-                                })}
+                <Collapse in={expandExp[i].expand} timeout="auto" unmountOnExit>
+                    <div>
+                        <List disablePadding component={'div'}>
+                            <ListItem className={classes.nested}>
+                                <ListItemIcon>
+                                    <DateRangeIcon style={{ color: COLORS.light }} />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={`${obj.dates.start} - ${obj.current ? 'Present' : obj.dates.end}`}
+                                    className={classes.summary} />
                             </ListItem>
-                        )
-                    })}
-                </List> */}
+                            <ListItem className={classes.nested}>
+                                <ListItemIcon>
+                                    <LocationOnIcon style={{ color: COLORS.light }} />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={obj.location}
+                                    className={classes.summary} />
+                            </ListItem>
+                            <ListItem className={classes.nested}>
+                                <ListItemIcon>
+                                    <DescriptionIcon style={{ color: COLORS.light }} />
+                                </ListItemIcon>
+                                <ul style={{ color: 'white', padding: 0 }}>
+                                    {obj.comments.map((el, j) => {
+                                        return (
+                                            <li key={j}>
+                                                <Typography
+                                                    gutterBottom
+                                                    className={classes.summary}
+                                                    color="textPrimary">{el}</Typography>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </ListItem>
+                            {obj.techStack.map((tech, i) => {
+                                return (
+                                    <ListItem key={i} className={classes.nested} style={{ display: 'block' }}>
+                                        {tech.stack.map((el, j) => {
+                                            return <Chip
+                                                label={el} key={j}
+                                                className={classes.chip}
+                                                avatar={
+                                                    <Avatar className={classes.chipIcon}>
+                                                        {tech.type === 'code' &&
+                                                            <CodeIcon className={classes.icon} />}
+                                                        {tech.type === 'storage' &&
+                                                            <StorageIcon className={classes.icon} />}
+                                                        {tech.type === 'ui' &&
+                                                            <BrushIcon className={classes.icon} />}
+                                                        {tech.type === 'cloud' &&
+                                                            <CloudIcon className={classes.icon} />}
+                                                        {tech.type === 'comsys' &&
+                                                            <DialerSipIcon className={classes.icon} />}
+
+                                                    </Avatar>
+                                                }
+                                            />
+                                        })}
+                                    </ListItem>
+                                )
+                            })}
+                        </List>
+                    </div>
+                </Collapse>
             </div>
         )
     };
 
-    /**
-     * make separate component as ExpandableList
-     * contains two elements:
-     *      ~> List containing work experience (current implementation)
-     *      ~> slide in drawer containing position details
-     *      ~> list item (work experience) click will trigger slide in drawer
-     *          > Persistant Drawer
-     *          > https://material-ui.com/components/drawers/
-     */
     const getExpereience = () => {
         return (
             <div className={classes.section}>
@@ -321,17 +362,7 @@ const Body = () => {
                     WORK EXPERIENCE
                 </Typography>
                 <List>
-                    {experienceSection(experience[0], 0)}
-                    {experienceSection(experience[1], 1)}
-                    <Collapse in={open} timeout="auto" unmountOnExit >
-                        <List>
-                            {experience.map((obj, i) => {
-                                if (i > 1) return experienceSection(obj, i)
-                                else return null;
-                            })}
-                        </List>
-                    </Collapse>
-                    {listExpand()}
+                    {experience.map((obj, i) => experienceSection(obj, i))}
                 </List>
             </div>
         )
@@ -341,16 +372,10 @@ const Body = () => {
         return (
             <div className={classes.section}>
                 <Typography variant="h6" className={classes.sectionHeading} gutterBottom>
-                    Education
+                    EDUCATION
                 </Typography>
                 <List>
-                    {education.schooling.map((obj, i) => {
-                        return (
-                            <div key={i}>
-                                {educationSection(obj, i)}
-                            </div>
-                        );
-                    })}
+                    {education.schooling.map((obj, i) => educationSection(obj, i))}
                 </List>
             </div>
         )
@@ -360,7 +385,7 @@ const Body = () => {
         return (
             <div className={classes.section}>
                 <Typography variant="h6" className={classes.sectionHeading} gutterBottom>
-                    Certifications
+                    CERTIFICATIONS
                 </Typography>
                 <List>
                     {education.certs.map((obj, i) => {

@@ -4,7 +4,6 @@ import IticImage from '../images/itic.jpeg';
 import InnovSqrImage from '../images/is.png';
 import CyberVisImage from '../images/cv.png';
 import skillData from './skillsData';
-// import NhaImage from '../images/nha.png';
 
 const experience = [
 	{
@@ -14,8 +13,16 @@ const experience = [
 		type: 'Fulltime',
 		location: 'Sydney, Australia',
 		current: true,
-		// comments: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sagittis auctor felis nec varius. Curabitur.",
-		techStack: [skillData.technologies["C#"], skillData.technologies.JavaScript],
+		comments: [
+			"Writing integration services for telephony services",
+			"Providing feature enrichment for partner products",
+			"Creating and deploying functional prototypes",
+		],
+		techStack: [
+			skillData.technologies.Cloud,
+			skillData.technologies.Telephony,
+			skillData.technologies["C#"],
+			skillData.technologies.JavaScript],
 		dates: {
 			start: 'October 2019',
 			end: null,
@@ -28,8 +35,12 @@ const experience = [
 		type: 'Fulltime',
 		location: 'Sydney, Australia',
 		current: false,
-		// comments: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sagittis auctor felis nec varius. Curabitur.",
-		techStack: [skillData.technologies.AWS, skillData.technologies.JavaScript],
+		comments: [
+			"Devlivered MVP ahead of time which was approved",
+			"Wrote 90% of code base and configured AWS architecture for deployment",
+			"Worked on a global virtual internship platform",
+		],
+		techStack: [skillData.technologies.Cloud, skillData.technologies.JavaScript],
 		dates: {
 			start: 'October 2019',
 			end: 'March 2020',
@@ -42,7 +53,12 @@ const experience = [
 		type: 'Internship',
 		location: 'Sydney, Australia',
 		current: false,
-		// comments: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sagittis auctor felis nec varius. Curabitur.",
+		comments: [
+			"Hired as full time developer in child company based on performance as intern",
+			"Worked on frontend and backend micro-services for an online learning platform",
+			"Won scholarship award provided by company",
+			"Selected for intern position based on high distinction achieved in university research course",
+		],
 		techStack: [skillData.technologies.JavaScript],
 		dates: {
 			start: 'August 2019',
@@ -56,7 +72,13 @@ const experience = [
 		type: 'Fulltime',
 		location: 'Islamabad, Pakistan',
 		current: false,
-		// comments: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sagittis auctor felis nec varius. Curabitur.",
+		comments: [
+			"Project lead and developer for budget tracking application for Centre for Peace and Development Initiatives (CPDI) which was later covered by the local news",
+			"Project lead and developer for grocery delivery application",
+			"Part of multiple android projects and development teams",
+			"Performed mentorship role for multiple interns and junior developers",
+			"Part of technical interview team for human resource onboarding",
+		],
 		techStack: [skillData.technologies.Java, skillData.technologies.PHP],
 		dates: {
 			start: 'January 2017',
@@ -70,27 +92,15 @@ const experience = [
 		type: 'Fulltime',
 		location: 'Islamabad, Pakistan',
 		current: false,
-		// comments: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sagittis auctor felis nec varius. Curabitur.",
+		comments: [
+			"Developed and deployed the Mayor of Islamabad's corporate website which was later covered by the local news"
+		],
 		techStack: [skillData.technologies.PHP],
 		dates: {
 			start: 'August 2016',
 			end: 'December 2016',
 		}
 	},
-	// {
-	// 	title: 'PHP Developer Intern',
-	// 	image: NhaImage,
-	// 	company: 'National Highway Authority',
-	// 	type: 'Internship',
-	// 	location: 'Islamabad, Pakistan',
-	// 	current: false,
-		// comments: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sagittis auctor felis nec varius. Curabitur.",
-	// 	techStack: [skillData.technologies.PHP],
-	// 	dates: {
-	// 		start: 'September 2015',
-	// 		end: 'September 2015',
-	// 	}
-	// },
 ];
 
 export default experience;
