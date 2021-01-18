@@ -24,6 +24,7 @@ import CloudIcon from '@material-ui/icons/Cloud';
 import BrushIcon from '@material-ui/icons/Brush';
 import BallotIcon from '@material-ui/icons/Ballot';
 import DialerSipIcon from '@material-ui/icons/DialerSip';
+import { ReactComponent as DevLogo } from '../../../assets/images/dev.svg';
 import {
     COLORS,
     typo,
@@ -51,6 +52,9 @@ const useStyles = makeStyles(theme => ({
         border: `4px solid ${COLORS.light}`,
         padding: theme.spacing(.5),
         backgroundColor: 'white'
+    },
+    nativeImg: {
+        color: COLORS.light
     },
     typo,
     sub,
@@ -142,6 +146,7 @@ const Sidebar = () => {
                                     {obj === "linkedin" && <LinkedInIcon />}
                                     {obj === "github" && <GitHubIcon />}
                                     {obj === "twitter" && <TwitterIcon />}
+                                    {obj === "dev" && <DevLogo width="25" height="25"/>}
                                 </Avatar>
                             </ListItemAvatar>
                             <ListItemText primary={data.links[obj].text} className={classes.summary} />
